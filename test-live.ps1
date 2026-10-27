@@ -1,4 +1,6 @@
-$baseUrl = "http://localhost:5000"
+param(
+    [string]$baseUrl = "http://localhost:5000"
+)
 Write-Host "--- Testing Astra Syndicate: Fleet Wars (.NET 9 Web API) ---"
 
 # 1. Health check
