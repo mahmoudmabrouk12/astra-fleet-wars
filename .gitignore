@@ -1,0 +1,15 @@
+## .NET Core / C# build outputs
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.vscode/
+
+## Environment & Secrets
+.env
+*.env.local
+
+## OS generated
+.DS_Store
+Thumbs.db
