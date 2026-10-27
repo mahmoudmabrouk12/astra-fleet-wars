@@ -7,6 +7,13 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// Dynamically bind to PORT if provided by cloud platforms (Render, Fly.io, Railway, Koyeb)
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
+{
+    builder.WebHost.UseUrls($"http://+:{port}");
+}
+
 // 1. Add Controllers with JSON camelCase formatting
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
@@ -113,6 +120,10 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Automatic redirects to Swagger UI for seamless reviewer experience
+app.MapGet("/", () => Results.Redirect("/api-docs"));
+app.MapGet("/swagger", () => Results.Redirect("/api-docs"));
 
 Console.WriteLine("=======================================================");
 Console.WriteLine("🚀 Astra Syndicate: Fleet Wars Backend (.NET 9)");
